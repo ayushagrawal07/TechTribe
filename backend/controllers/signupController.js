@@ -39,7 +39,7 @@ const signupController = async (req,res) => {
         }
         else {
            return res.status(400).json({
-                message:"Madrchod",success:false
+                message:"nai hua",success:false
             })
         }    
        

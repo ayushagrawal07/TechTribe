@@ -1,7 +1,39 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
+
+  const [email,setemail] = useState("");
+  const [password,setpassword] = useState("");
+  const navigate = useNavigate();
+  function postdata(e){
+    e.preventDefault();
+   fetch("http://localhost:5000/api/signin",{
+    method:"post",
+    headers:{
+    "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      email:email,password:password
+    })
+
+
+   }).then((res)=>{
+    return res.json();
+   })
+   .then((data)=>{
+    console.log(data);
+    if(data.success === false){
+      toast.error(data.message);
+    }
+    else {
+      
+      toast.success(data.message);
+      navigate("/");
+    }
+   })
+  }
   return (
     <>
       <section className="bg-gra-50 dark:bg-gray-900">
@@ -19,11 +51,15 @@ const SignIn = () => {
               <form className="space-y-4 md:space-y-6" action="#">
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                  <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""/>
+                  <input type="email" value={email}name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""
+                  onChange={(e)=>{setemail(e.target.value)}}
+                  />
                 </div>
                 <div>
                   <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                  <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""/>
+                  <input type="password" value={password} name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""
+                  onChange={(e)=>{setpassword(e.target.value)}}
+                  />
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-start">
@@ -38,12 +74,13 @@ const SignIn = () => {
                 </div>
                 <button 
   type="submit" 
+  onClick={postdata}
   className="w-full text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
   Sign in
 </button>
 
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Don’t have an account yet? <Link to="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
+                  Don’t have an account yet ? <Link to="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
                 </p>
               </form>
             </div>
