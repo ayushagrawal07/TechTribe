@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import  {toast}  from 'react-toastify';
+import { Context } from '../context/Context';
+
 
 const SignIn = () => {
-
+  const {setlogin} = useContext(Context)
   const [email,setemail] = useState("");
   const [password,setpassword] = useState("");
   const navigate = useNavigate();
-  function postdata(e){
-    e.preventDefault();
+  function postdata(event){
+    event.preventDefault(); 
    fetch("http://localhost:5000/api/signin",{
     method:"post",
     headers:{
@@ -20,16 +22,21 @@ const SignIn = () => {
 
 
    }).then((res)=>{
+
     return res.json();
+    
    })
    .then((data)=>{
-    console.log(data);
+ 
+   
     if(data.success === false){
       toast.error(data.message);
     }
     else {
-      
-      toast.success(data.message);
+    toast.success("Logged in successfully");
+      localStorage.setItem("jwt",data.token);   
+     
+      setlogin(true);
       navigate("/");
     }
    })

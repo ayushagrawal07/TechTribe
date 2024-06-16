@@ -7,11 +7,15 @@ const { ObjectId } = mongoose.Schema.Types
 const post = new Schema({
     title:{
         type:String,
-        required:true
+       // required:true
     },
+
     body:{
         type:String,
         required:true
+    },
+    image:{
+        type:String,required:true
     },
     postedby:{
         type: ObjectId,
