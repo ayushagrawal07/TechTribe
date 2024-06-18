@@ -5,6 +5,9 @@ import signincontroller from "../controllers/signincontroller.js";
 import islogin from "../middlewares/islogin.js";
 import createpost from "../controllers/createpost.js";
 import getposts from "../controllers/getposts.js";
+import profileposts from "../controllers/profileposts.js";
+import like from "../controllers/like.js";
+import unlike from "../controllers/unlike.js";
 
 const route = Router();
 
@@ -12,5 +15,8 @@ route.post("/signup",signupController);
 route.post("/signin",signincontroller);
 route.post("/createpost",islogin,createpost);
 route.get("/posts",getposts)
+route.get("/profileposts",islogin,profileposts);
+route.put("/like",islogin,like)
+route.put("/unlike",islogin,unlike)
 
 export default route;

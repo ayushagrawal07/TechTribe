@@ -28,9 +28,9 @@ const navigate = useNavigate();
    }).then((res)=>{
     return res.json();
   }).then((data)=>{
-    if(data.error){
+    if(data.success === false){
       console.log(data.error);
-     toast.error(data.error);
+     toast.error(data.message);
     }
     else{
       console.log(data);

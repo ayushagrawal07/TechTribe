@@ -25,7 +25,7 @@ try{
                }
                if(response){
               const token = jwtt.sign({_id:saveduser.id},jwtsecret);
-               return res.send({token});
+               return res.send({token,saveduser});
                }
                else {
                 return res.status(422).json({

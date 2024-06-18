@@ -1,4 +1,4 @@
-import React, { useState,createContext } from "react";
+import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
@@ -10,12 +10,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import Createpost from "./components/CreatePost";
 import { Context } from "./context/Context";
 import LogoutModal from "./components/LogoutModal";
+import Spinner from "./components/Spinner.js";
+
 function App() {
   const [login,setlogin] = useState(false)
   const[modal,setmodal] = useState(false);
+  const [loading,setloading]   = useState(false);
   return (
     <div className="bg-black-900 text-white min-h-screen">
-      <Context.Provider value={{login,setlogin,modal,setmodal}}>
+      <Context.Provider value={{login,setlogin,modal,setmodal,loading,setloading}}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
@@ -27,8 +30,10 @@ function App() {
         </Routes>
         
         <ToastContainer />
+        {modal &&<LogoutModal></LogoutModal>}
+        {loading && <Spinner></Spinner>}
       </Context.Provider>
-    {modal &&<LogoutModal></LogoutModal>}
+    
    
     </div>
   );

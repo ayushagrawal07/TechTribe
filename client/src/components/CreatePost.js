@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
+import { Context } from '../context/Context';
 
 const CreatePostForm = () => {
 
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
   const [video, setVideo] = useState("");
-  const [url, setUrl] = useState("");         
+  const [url, setUrl] = useState("");   
+  const {setloading} = useContext(Context);      
   const navigate = useNavigate();
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -53,8 +55,9 @@ const CreatePostForm = () => {
   },[url]);
 
   const handleSubmit = (e) => {
+    
     e.preventDefault();
-
+    
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "techtribe0");

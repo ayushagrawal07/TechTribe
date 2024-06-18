@@ -1,6 +1,41 @@
-import React from 'react';
-
+import React,{useState} from 'react';
+import {Heart} from "lucide-react"
+import { FcLike } from "react-icons/fc";
 const Card = ({post}) => {
+  const [data,setdata]  = useState(post);
+ const handlelike =(id)=>{
+  fetch("http://localhost:5000/api/like",{
+    method:"put",
+    headers:{
+      "Content-Type" : "application/json",
+      "Authorization":"Bearer " + localStorage.getItem("jwt")
+    },
+    body:JSON.stringify({
+      id:id
+    })
+  }).then(res=>res.json())
+  .then(result=>{
+ 
+    setdata(result);
+  })
+ }
+ const handleunlike =(id)=>{
+  fetch("http://localhost:5000/api/unlike",{
+    method:"put",
+    headers:{
+      "Content-Type" : "application/json",
+      "Authorization":"Bearer " + localStorage.getItem("jwt")
+    },
+    body:JSON.stringify({
+      id:id
+    })
+  }).then(res=>res.json())
+  .then(result=>{
+  
+    setdata(result);
+  })
+ }
+
   return (
     <div className="flex justify-center py-8">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
@@ -8,7 +43,7 @@ const Card = ({post}) => {
           <div className="flex items-center space-x-3">
             <img src="https://placekitten.com/40/40" alt="User Avatar" className="w-10 h-10 rounded-full" />
             <div>
-              <p className="text-gray-800 font-semibold">{post.postedby.name}</p>
+              <p className="text-gray-800 font-semibold">{data.postedby.name}</p>
               <p className="text-gray-500 text-sm">Posted 2 hours ago</p>
             </div>
           </div>
@@ -23,20 +58,33 @@ const Card = ({post}) => {
           </div>
         </div>
         <div className="mb-4">
-          <p className="text-gray-800">{post.body}
+          <p className="text-gray-800">{data.body}
           </p>
         </div>
         <div className="mb-4">
-          <img src={post.image} alt="Post Image" className="w-full h-64 object-cover rounded-md" />
+          <img src={data.image} alt="Post Image" className="w-full h-64 object-cover rounded-md" />
         </div>
         <div className="flex items-center justify-between text-gray-500 mb-4">
           <div className="flex items-center space-x-3">
-            <button className="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-full">
-              <svg className="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C6.11 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-4.11 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-              <span>42 Likes</span>
-            </button>
+          <button className="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-full">
+            {
+              data.likes.includes(JSON.parse(localStorage.getItem("user"))._id)
+              ?(  <>              
+                <FcLike onClick={()=>handleunlike(data._id)} size={27}/>                 
+                 <span>{data.likes.length} Likes</span>
+                 </>
+              
+              )
+              :
+              (
+               <>
+                <Heart onClick={()=>handlelike(data._id)}/>               
+                 <span>{data.likes.length} Likes</span>
+                 </>
+              )
+            }
+             </button>
+           
           </div>
           <button className="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-full">
             <svg className="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

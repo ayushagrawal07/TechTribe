@@ -1,99 +1,66 @@
-import React, { useEffect, useState } from "react";
-import PostDetail from "./PostDetail";
-import "./Profile.css";
-import ProfilePic from "./ProfilePic";
+import React, {  useEffect, useState } from 'react';
 
-export default function Profie() {
-  var picLink = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png"
-  const [pic, setPic] = useState([]);
-  const [show, setShow] = useState(false)
-  const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState("")
-  const [changePic, setChangePic] = useState(false)
+             
 
-
-  const toggleDetails = (posts) => {
-    if (show) {
-      setShow(false);
-    } else {
-      setShow(true);
-      setPosts(posts);
-    }
-  };
-
-  const changeprofile = () => {
-    if (changePic) {
-      setChangePic(false)
-    } else {
-      setChangePic(true)
-    }
-  }
-
-
-  // useEffect(() => {
-  // //  // fetch(`http://localhost:5000/user/${JSON.parse(localStorage.getItem("user"))._id}`, {
-  // //     headers: {
-  // //       Authorization: "Bearer " + localStorage.getItem("jwt"),
-  // //     },
-  // //   })
-  //     .then((res) => res.json())
-  //     .then((result) => {
-  //       console.log(result)
-  //       setPic(result.post);
-  //       setUser(result.user)
-  //       console.log(pic);
-  //     });
-  // }, []);
-
+const ProfilePage = () => {
+  const [posts,setposts] = useState([]);
+  useEffect(()=>{
+    fetch("http://localhost:5000/api/profileposts",{
+      headers:{
+        "Authorization" : "Bearer " + localStorage.getItem("jwt")
+      }
+    })
+    .then(res=>res.json())
+    .then(result=>{
+      setposts(result);
+    })
+    .catch(e=>console.log(e.message))
+  },[])
+ 
   return (
-    <div className="profile">
-      {/* Profile frame */}
-      <div className="profile-frame">
-        {/* profile-pic */}
-        <div className="profile-pic">
+    <div className="max-w-4xl mx-auto p-4 text-gray-900">
+      <header className="flex items-center justify-between mb-8">
+        <div className="flex items-center space-x-4">
           <img
-            onClick={changeprofile}
-            src={user.Photo ? user.Photo : picLink}
-            alt=""
+            src="https://via.placeholder.com/150"
+            alt="Profile"
+            className="w-24 h-24 rounded-full"
           />
-        </div>
-        {/* profile-data */}
-        <div className="pofile-data">
-          {/* <h1>{JSON.parse(localStorage.getItem("user")).name}</h1> */}
-          <div className="profile-info" style={{ display: "flex" }}>
-            <p>{pic ? pic.length : "0"} posts</p>
-            <p>{user.followers ? user.followers.length : "0"} followers</p>
-            <p>{user.following ? user.following.length : "0"} following</p>
+          <div>
+            <h1 className="text-2xl font-bold">{JSON.parse(localStorage.getItem("user")).name}</h1>
+            <p className="text-gray-600">Bio about the user goes here</p>
           </div>
         </div>
-      </div>
-      <hr
-        style={{
-          width: "90%",
+        <div className="flex space-x-8">
+          <div className="text-center">
+            <span className="font-bold">100</span>
+            <p className="text-gray-600">Posts</p>
+          </div>
+          <div className="text-center">
+            <span className="font-bold">200</span>
+            <p className="text-gray-600">Followers</p>
+          </div>
+          <div className="text-center">
+            <span className="font-bold">180</span>
+            <p className="text-gray-600">Following</p>
+          </div>
+        </div>
+      </header>
 
-          opacity: "0.8",
-          margin: "25px auto",
-        }}
-      />
-      {/* Gallery */}
-      <div className="gallery">
-        {/* {pic.map((pics) => {
-          return <img key={pics._id} src={pics.photo}
-            onClick={() => {
-              toggleDetails(pics)
-            }}
-            className="item"></img>;
-        })} */}
+      <div className="grid grid-cols-3 gap-4">
+              
+        {
+          posts.map((post)=>{
+            return (
+             
+            <img src={post.image}/>
+            )
+          })
+        }
+
       </div>
-      {show &&
-        <PostDetail item={posts} toggleDetails={toggleDetails} />
-      }
-      {
-        changePic &&
-        <ProfilePic changeprofile={changeprofile} />
-      }
     </div>
   );
-}
+};
 
-
+export default ProfilePage;

@@ -34,7 +34,8 @@ const SignIn = () => {
     }
     else {
     toast.success("Logged in successfully");
-      localStorage.setItem("jwt",data.token);   
+      localStorage.setItem("jwt",data.token); 
+      localStorage.setItem("user",JSON.stringify(data.saveduser)); 
      
       setlogin(true);
       navigate("/");

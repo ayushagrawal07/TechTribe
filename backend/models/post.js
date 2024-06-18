@@ -17,6 +17,10 @@ const post = new Schema({
     image:{
         type:String,required:true
     },
+    likes:[{
+        type:ObjectId,
+        ref:"User"
+    }],
     postedby:{
         type: ObjectId,
         ref:"User"
