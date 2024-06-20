@@ -21,6 +21,10 @@ const post = new Schema({
         type:ObjectId,
         ref:"User"
     }],
+    comments:[{
+        comment:{type:String,required:true},
+        postedby:{type:ObjectId,ref:"User"}
+    }],
     postedby:{
         type: ObjectId,
         ref:"User"
