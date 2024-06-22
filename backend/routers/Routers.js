@@ -9,6 +9,7 @@ import profileposts from "../controllers/profileposts.js";
 import like from "../controllers/like.js";
 import unlike from "../controllers/unlike.js";
 import comment from "../controllers/comment.js";
+import deletepost from "../controllers/deletepost.js";
 
 const route = Router();
 
@@ -20,5 +21,6 @@ route.get("/profileposts",islogin,profileposts);
 route.put("/like",islogin,like)
 route.put("/unlike",islogin,unlike)
 route.put("/comment",islogin,comment)
+route.delete("/deletepost/:postId",islogin,deletepost)
 
 export default route;

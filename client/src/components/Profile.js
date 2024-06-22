@@ -1,9 +1,10 @@
 import React, {  useEffect, useState } from 'react';
 
-             
+import PostModel from './PostModel';   
 
 const ProfilePage = () => {
   const [posts,setposts] = useState([]);
+  const [selectedpost,setselectedpost] = useState(null);
   useEffect(()=>{
     fetch("http://localhost:5000/api/profileposts",{
       headers:{
@@ -16,6 +17,16 @@ const ProfilePage = () => {
     })
     .catch(e=>console.log(e.message))
   },[])
+  const toggledetails=(post)=>{
+    if(selectedpost){
+      setselectedpost(null);
+      setposts(posts);
+    }
+    else {
+      setselectedpost(post);
+      
+    }
+  }
  
   return (
     <div className="max-w-4xl mx-auto p-4 text-gray-900">
@@ -48,15 +59,19 @@ const ProfilePage = () => {
       </header>
 
       <div className="grid grid-cols-3 gap-4">
-              
+              {/* {console.log(posts[0].comments[0].postedby.image)} */}
         {
           posts.map((post)=>{
             return (
              
-            <img src={post.image}/>
-            )
+            <img src={post.image} className='cursor-pointer' onClick = {()=>toggledetails(post)}/> 
+            
+          )
           })
         }
+      {
+        selectedpost && <PostModel post = {selectedpost} onClose = {toggledetails}/>
+      }
 
       </div>
     </div>
