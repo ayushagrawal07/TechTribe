@@ -3,7 +3,7 @@ import { Heart } from "lucide-react";
 import { FcLike } from "react-icons/fc";
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 import {toast} from "react-toastify"
-
+import { Link } from 'react-router-dom';
 
 const Card = ({ post }) => {
   const [data, setData] = useState(post); // Initial state set to null
@@ -87,7 +87,12 @@ const Card = ({ post }) => {
           <div className="flex items-center space-x-3">
             <img src="https://placekitten.com/40/40" alt="User Avatar" className="w-10 h-10 rounded-full" />
             <div>
-              <p className="text-gray-800 font-semibold">{data.postedby.name}</p> {/* Ensure correct field is accessed */}
+              
+              <p className="text-gray-800 font-semibold">
+              <Link to = {`/userprofile/${data.postedby._id}`} className='hover:bg-red-500'>
+                {data.postedby.name}
+              </Link>{/* Ensure correct field is accessed */}
+              </p> 
               <p className="text-gray-500 text-sm">Posted 2 hours ago</p>
             </div>
           </div>

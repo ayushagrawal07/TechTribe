@@ -11,6 +11,9 @@ import Createpost from "./components/CreatePost";
 import { Context } from "./context/Context";
 import LogoutModal from "./components/LogoutModal";
 import Spinner from "./components/Spinner.js";
+import Userprofile from "./components/Userprofile.js";
+
+
 
 function App() {
   const [login,setlogin] = useState(false)
@@ -26,6 +29,7 @@ function App() {
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/createpost" element={<Createpost />}></Route>
+          <Route path = "/userprofile/:id" element = {<Userprofile></Userprofile>}/>
          
         </Routes>
         
