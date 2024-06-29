@@ -80,6 +80,7 @@ const Card = ({ post }) => {
 
  
 
+  
   return (
     <div className="flex justify-center py-8">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
@@ -89,9 +90,11 @@ const Card = ({ post }) => {
             <div>
               
               <p className="text-gray-800 font-semibold">
-              <Link to = {`/userprofile/${data.postedby._id}`} className='hover:bg-red-500'>
+               
+              <Link to = {(data && data.postedby) && ((data.postedby._id) !== (JSON.parse(localStorage.getItem("user"))._id)) ? `/userprofile/${data.postedby._id}`:"/profile"} className='hover:bg-red-500'>
                 {data.postedby.name}
-              </Link>{/* Ensure correct field is accessed */}
+              </Link>
+             
               </p> 
               <p className="text-gray-500 text-sm">Posted 2 hours ago</p>
             </div>
@@ -169,6 +172,7 @@ const Card = ({ post }) => {
         </div>
       </div>
     </div>
+   
   );
 };
 

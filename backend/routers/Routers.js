@@ -11,6 +11,8 @@ import unlike from "../controllers/unlike.js";
 import comment from "../controllers/comment.js";
 import deletepost from "../controllers/deletepost.js";
 import userprofile from "../controllers/userprofile.js";
+import follow from "../controllers/follow.js";
+import unfollow from "../controllers/unfollow.js";
 
 const route = Router();
 
@@ -24,5 +26,6 @@ route.put("/unlike",islogin,unlike)
 route.put("/comment",islogin,comment)
 route.delete("/deletepost/:postId",islogin,deletepost)
 route.get("/userprofile/:id",islogin,userprofile);
-
+route.put("/follow",islogin,follow);
+route.put("/unfollow",islogin,unfollow);
 export default route;

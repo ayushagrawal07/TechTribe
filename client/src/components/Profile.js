@@ -5,29 +5,35 @@ import PostModel from './PostModel';
 const ProfilePage = () => {
   const [posts,setposts] = useState([]);
   const [selectedpost,setselectedpost] = useState(null);
+  const [user,setuser] = useState("")
   useEffect(()=>{
-    fetch("http://localhost:5000/api/profileposts",{
+    fetch(`http://localhost:5000/api/userprofile/${JSON.parse(localStorage.getItem("user"))._id}`,{
       headers:{
         "Authorization" : "Bearer " + localStorage.getItem("jwt")
       }
     })
     .then(res=>res.json())
     .then(result=>{
-      setposts(result);
+      setposts(result.posts);
+      setuser(result.user);
+      
     })
     .catch(e=>console.log(e.message))
   },[])
+
   const toggledetails=(post)=>{
     if(selectedpost){
       setselectedpost(null);
       setposts(posts);
+      
+
     }
     else {
       setselectedpost(post);
       
     }
   }
- 
+ console.log(user);
   return (
     <div className="max-w-4xl mx-auto p-4 text-gray-900">
       <header className="flex items-center justify-between mb-8">
@@ -44,15 +50,15 @@ const ProfilePage = () => {
         </div>
         <div className="flex space-x-8">
           <div className="text-center">
-            <span className="font-bold">100</span>
+            <span className="font-bold">{posts.length?posts.length:0}</span>
             <p className="text-gray-600">Posts</p>
           </div>
           <div className="text-center">
-            <span className="font-bold">200</span>
+            <span className="font-bold">{user.followers?user.followers.length:0}</span>
             <p className="text-gray-600">Followers</p>
           </div>
           <div className="text-center">
-            <span className="font-bold">180</span>
+            <span className="font-bold">{user.following?user.following.length:0}</span>
             <p className="text-gray-600">Following</p>
           </div>
         </div>

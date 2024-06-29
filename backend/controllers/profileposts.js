@@ -5,7 +5,10 @@ const profileposts = (req,res) => {
         .populate("comments","comment postedby")
         .populate("postedby","name _id")
         .populate("comments.postedby" ,"name image _id")
-        .then(posts=>res.json(posts))        
+        
+        .then(posts=>{
+         
+         res.json(posts)})        
         .catch(e=>{
 
          console.log(e)

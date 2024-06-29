@@ -8,7 +8,7 @@ try {
     .populate("_id name")
     .then(user=>{
         Post.find({postedby:userid})
-        .populate("postedby","_id name")
+        .populate("postedby","_id name followers following")
         .then(posts=>{
             return res.json({user,posts})
         })
