@@ -21,6 +21,9 @@ const user = new Schema({
         required:true,
         minLength:8
     },
+    Photo: {
+        type: String,
+    },
     followers:[{
         type:ObjectId,
         ref:"User"

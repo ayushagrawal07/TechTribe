@@ -30,6 +30,6 @@ const post = new Schema({
         ref:"User"
 
     }
-})
+},{ timestamps: true });
 const Post = mongoose.model("Post",post);
 export default Post;

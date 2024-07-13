@@ -13,6 +13,7 @@ import deletepost from "../controllers/deletepost.js";
 import userprofile from "../controllers/userprofile.js";
 import follow from "../controllers/follow.js";
 import unfollow from "../controllers/unfollow.js";
+import googleSingin from "../controllers/googleSignin.js";
 
 const route = Router();
 
@@ -28,4 +29,6 @@ route.delete("/deletepost/:postId",islogin,deletepost)
 route.get("/userprofile/:id",islogin,userprofile);
 route.put("/follow",islogin,follow);
 route.put("/unfollow",islogin,unfollow);
+
+route.post("/googlesignin",googleSingin);
 export default route;

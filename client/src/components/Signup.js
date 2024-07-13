@@ -1,47 +1,82 @@
-import React, { useState } from "react";
-import {toast} from "react-toastify";
-
-import { Link , useNavigate} from "react-router-dom";
+import React, { useState,useContext } from "react";
+import { toast } from "react-toastify";
+import { GoogleLogin } from '@react-oauth/google';
+import { Context } from '../context/Context';
+import { Link, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 export default function SignUp() {
-  const [name,setname] = useState("");
-  const [username,setusername] = useState("");
-  const [email,setemail] = useState("");
-  const [password,setpassword] = useState("");
- 
-  const notifya=(e)=>toast.success(e)
-const notifyb=(e)=>toast.warn(e);
-const navigate = useNavigate();
-   function postdata(e){
-  e.preventDefault();
-  fetch("http://localhost:5000/api/signup",{
-    method:"post",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify({
-      name:name,
-      email:email,
-      username:username,
-      password:password
+  const [name, setname] = useState("");
+  const [username, setusername] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+
+  const {setlogin} = useContext(Context)
+
+  const notifya = (e) => toast.success(e)
+  const notifyb = (e) => toast.warn(e);
+  const navigate = useNavigate();
+  function postdata(e) {
+    e.preventDefault();
+    fetch("http://localhost:5000/api/signup", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        username: username,
+        password: password
+      })
+    }).then((res) => {
+      return res.json();
+    }).then((data) => {
+      if (data.success === false) {
+        console.log(data.error);
+        toast.error(data.message);
+      }
+      else {
+        console.log(data);
+        notifya(data.message)
+        navigate("/signin");
+      }
+    }).catch((e) => {
+      notifyb(e.message);
+      console.log(e);
     })
-   }).then((res)=>{
-    return res.json();
-  }).then((data)=>{
-    if(data.success === false){
-      console.log(data.error);
-     toast.error(data.message);
-    }
-    else{
-      console.log(data);
-    notifya(data.message)
-    navigate("/signin");
   }
-  }).catch((e)=>{
-    notifyb(e.message);
-    console.log(e);
-  })
- }
+  const handleGoogleSignIn=(credentialResponse)=>{
+    
+    const jwtdetail = jwtDecode(credentialResponse);
+    console.log(jwtdetail);
+    fetch("http://localhost:5000/api/googlesignin",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        email_verified : jwtdetail.email_verified,
+        name:jwtdetail.name,
+        username:jwtdetail.email,
+        email:jwtdetail.email,
+        clientId:credentialResponse,
+        photo:jwtdetail.picture
+      })
+
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      if(data.success === true){
+      toast.success("Logged in successfully");
+      localStorage.setItem("jwt",data.token); 
+      localStorage.setItem("user",JSON.stringify(data.user)); 
+     
+      setlogin(true);
+      navigate("/");
+      }
+    })
+  }
   return (
     <>
       <section className="bg-black-50 dark:bg-gray-900 py-16">
@@ -58,26 +93,26 @@ const navigate = useNavigate();
               <form className="space-y-4 md:space-y-6">
                 <div>
                   <label htmlFor="fullname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your FullName</label>
-                  <input type="text" name="fullname" value ={name} id="fullname" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Sanjay" required=""
-                  onChange={(e)=>{setname(e.target.value)}}
+                  <input type="text" name="fullname" value={name} id="fullname" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Sanjay" required=""
+                    onChange={(e) => { setname(e.target.value) }}
                   />
                 </div>
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                  <input type="email" name="email" value={email} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" 
-                  onChange={(e)=>{setemail(e.target.value)}}
+                  <input type="email" name="email" value={email} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""
+                    onChange={(e) => { setemail(e.target.value) }}
                   />
                 </div>
                 <div>
                   <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Username</label>
-                  <input type="text" name="username" value={username} id="username" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required="" 
-                  onChange={(e)=>{setusername(e.target.value)}}
+                  <input type="text" name="username" value={username} id="username" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required=""
+                    onChange={(e) => { setusername(e.target.value) }}
                   />
                 </div>
                 <div>
                   <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                   <input type="password" value={password} name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""
-                  onChange={(e)=>{setpassword(e.target.value)}}
+                    onChange={(e) => { setpassword(e.target.value) }}
                   />
                 </div>
                 <div className="flex items-center justify-between">
@@ -90,6 +125,14 @@ const navigate = useNavigate();
                     </div>
                   </div>
                 </div>
+                <GoogleLogin
+                  onSuccess={credentialResponse => {
+                    handleGoogleSignIn(credentialResponse.credential);
+                  }}
+                  onError={() => {
+                    console.log('Login Failed');
+                  }}
+                />;
                 <button type="submit" className="w-full text-black bg-cyan-500 hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800" onClick={postdata} >Sign Up</button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have an account yet?

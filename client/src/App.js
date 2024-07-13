@@ -12,7 +12,8 @@ import { Context } from "./context/Context";
 import LogoutModal from "./components/LogoutModal";
 import Spinner from "./components/Spinner.js";
 import Userprofile from "./components/Userprofile.js";
-
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { BrowserRouter } from "react-router-dom";
 
 
 function App() {
@@ -20,7 +21,9 @@ function App() {
   const[modal,setmodal] = useState(false);
   const [loading,setloading]   = useState(false);
   return (
+    <BrowserRouter>
     <div className="bg-black-900 text-white min-h-screen">
+      <GoogleOAuthProvider clientId="328049206311-e2u3dg96ng3eq1se5vt8di4525qg5l51.apps.googleusercontent.com">
       <Context.Provider value={{login,setlogin,modal,setmodal,loading,setloading}}>
         <Navbar />
         <Routes>
@@ -37,9 +40,10 @@ function App() {
         {modal &&<LogoutModal></LogoutModal>}
         {loading && <Spinner></Spinner>}
       </Context.Provider>
-    
-   
+      </GoogleOAuthProvider>
     </div>
+      </BrowserRouter>
+   
   );
 }
 

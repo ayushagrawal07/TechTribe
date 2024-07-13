@@ -4,6 +4,7 @@ import { FcLike } from "react-icons/fc";
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 import {toast} from "react-toastify"
 import { Link } from 'react-router-dom';
+import {formatDistanceToNow } from "date-fns";
 
 const Card = ({ post }) => {
   const [data, setData] = useState(post); // Initial state set to null
@@ -96,7 +97,7 @@ const Card = ({ post }) => {
               </Link>
              
               </p> 
-              <p className="text-gray-500 text-sm">Posted 2 hours ago</p>
+              <p className="text-gray-500 text-sm">Posted {data.createdAt?formatDistanceToNow(new Date(data.createdAt)):"N/A"} ago</p>
             </div>
           </div>
           <div className="text-gray-500 cursor-pointer">
