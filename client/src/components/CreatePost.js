@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
-import { Context } from '../context/Context';
+//import { Context } from '../context/Context';
 import dotenv from 'dotenv';
 dotenv.config();
 const Base_Url = process.env.Base_Url;
@@ -9,7 +9,7 @@ const CreatePostForm = () => {
 
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
-  const [video, setVideo] = useState("");
+ // const [video, setVideo] = useState("");
   const [url, setUrl] = useState("");   
  // const {setloading} = useContext(Context);      
   const navigate = useNavigate();
