@@ -14,18 +14,17 @@ import Spinner from "./components/Spinner.js";
 import Userprofile from "./components/Userprofile.js";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { BrowserRouter } from "react-router-dom";
-import dotenv from 'dotenv';
-dotenv.config();
+
 
 function App() {
   const [login,setlogin] = useState(false)
   const[modal,setmodal] = useState(false);
   const [loading,setloading]   = useState(false);
-  const CID = process.env.CID;
+  
   return (
     <BrowserRouter>
     <div className="bg-black-900 text-white min-h-screen">
-      <GoogleOAuthProvider clientId = {CID} >
+      <GoogleOAuthProvider clientId = "328049206311-e2u3dg96ng3eq1se5vt8di4525qg5l51.apps.googleusercontent.com" >
       <Context.Provider value={{login,setlogin,modal,setmodal,loading,setloading}}>
         <Navbar />
         <Routes>
