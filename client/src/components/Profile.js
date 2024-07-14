@@ -2,6 +2,7 @@ import React, {  useEffect, useState } from 'react';
 
 import PostModel from './PostModel';   
 import dotenv from 'dotenv';
+
 dotenv.config();
 const Base_Url = process.env.Base_Url;
 
@@ -73,7 +74,7 @@ const ProfilePage = () => {
           posts.map((post)=>{
             return (
              
-            <img src={post.image} className='cursor-pointer' onClick = {()=>toggledetails(post)}/> 
+            <img src={post.image} alt="" className='cursor-pointer' onClick = {()=>toggledetails(post)}/> 
             
           )
           })

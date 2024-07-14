@@ -22,7 +22,7 @@ const Home = () => {
       .then(res => res.json())
       .then(result => setData(result))
       .catch(error => console.log(error));
-  }, [])
+  }, [login,navigate])
 
   return (
     <>

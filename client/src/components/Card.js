@@ -74,7 +74,7 @@ const Card = ({ post }) => {
     const commentsToShow = showAllComments ? data.comments : data.comments.slice(0, 1); // Show all comments or just the first one
     return commentsToShow.map((comment, index) => (
       <div key={index} className="flex items-center space-x-3">
-        <img src="https://placekitten.com/32/32" alt="User Avatar" className="w-8 h-8 rounded-full" />
+        <img src="https://placekitten.com/32/32" alt="" className="w-8 h-8 rounded-full" />
         <div>
         <p className="text-gray-800 font-semibold">{comment.postedby?.name || 'Anonymous'}</p> {/* Use optional chaining */}
           <p className="text-gray-500 text-sm">{comment.comment}</p>
@@ -91,7 +91,7 @@ const Card = ({ post }) => {
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
-            <img src="https://placekitten.com/40/40" alt="User Avatar" className="w-10 h-10 rounded-full" />
+            <img src="https://placekitten.com/40/40" alt="" className="w-10 h-10 rounded-full" />
             <div>
               
               <p className="text-gray-800 font-semibold">
@@ -118,7 +118,7 @@ const Card = ({ post }) => {
           <p className="text-gray-800">{data.body}</p>
         </div>
         <div className="mb-4">
-          <img src={data.image} alt="Post Image" className="w-full h-64 object-cover rounded-md" />
+          <img src={data.image} alt="" className="w-full h-64 object-cover rounded-md" />
         </div>
         <div className="flex items-center justify-between text-gray-500 mb-4">
           <div className="flex items-center space-x-3">

@@ -11,7 +11,7 @@ const CreatePostForm = () => {
   const [image, setImage] = useState("");
   const [video, setVideo] = useState("");
   const [url, setUrl] = useState("");   
-  const {setloading} = useContext(Context);      
+ // const {setloading} = useContext(Context);      
   const navigate = useNavigate();
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -19,10 +19,10 @@ const CreatePostForm = () => {
 
   };
 
-  const handleVideoChange = (e) => {
-    const file = e.target.files[0];
-    setVideo(file);
-  };
+  // const handleVideoChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setVideo(file);
+  // };
 
   useEffect(() =>
     {
@@ -54,7 +54,7 @@ const CreatePostForm = () => {
       .catch((e) => console.log(e));
     }
 
-  },[url]);
+  },[url,content,navigate]);
 
   const handleSubmit = (e) => {
     
@@ -127,7 +127,7 @@ const CreatePostForm = () => {
             onChange={handleImageChange}
           />
         </div>
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label
             htmlFor="post-video"
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -141,7 +141,7 @@ const CreatePostForm = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             onChange={handleVideoChange}
           />
-        </div>
+        </div> */}
         <div className="flex items-center justify-between">
           <button
             type="submit"
