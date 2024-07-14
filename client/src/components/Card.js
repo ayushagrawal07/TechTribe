@@ -5,6 +5,10 @@ import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 import {toast} from "react-toastify"
 import { Link } from 'react-router-dom';
 import {formatDistanceToNow } from "date-fns";
+import dotenv from 'dotenv';
+dotenv.config();
+const Base_Url = process.env.Base_Url;
+
 
 const Card = ({ post }) => {
   const [data, setData] = useState(post); // Initial state set to null
@@ -13,7 +17,7 @@ const Card = ({ post }) => {
   
 
   const handleLike = (id) => {
-    fetch("http://localhost:5000/api/like", {
+    fetch(`${Base_Url}/api/like`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +31,7 @@ const Card = ({ post }) => {
   };
 
   const handleUnlike = (id) => {
-    fetch("http://localhost:5000/api/unlike", {
+    fetch(`${Base_Url}/api/unlike`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +45,7 @@ const Card = ({ post }) => {
   };
 
   const handleComment = (comment, id) => {
-    fetch("http://localhost:5000/api/comment", {
+    fetch(`${Base_Url}/api/comment`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",

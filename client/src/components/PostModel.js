@@ -4,12 +4,15 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { FcLike } from 'react-icons/fc';
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify"
+import dotenv from 'dotenv';
+dotenv.config();
+const Base_Url = process.env.Base_Url;
 
 export default function PostModal({ post, onClose }) {
 const navigate = useNavigate()
   const handelDelete=(postid)=>{
     console.log(postid,"Hey");
-    fetch(`http://localhost:5000/api/deletepost/${postid}`,{
+    fetch(`${Base_Url}/api/deletepost/${postid}`,{
       method:"delete",
       headers:{
         Authorization : "Bearer " + localStorage.getItem("jwt")

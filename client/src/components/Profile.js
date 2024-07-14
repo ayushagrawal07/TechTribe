@@ -1,13 +1,16 @@
 import React, {  useEffect, useState } from 'react';
 
 import PostModel from './PostModel';   
+import dotenv from 'dotenv';
+dotenv.config();
+const Base_Url = process.env.Base_Url;
 
 const ProfilePage = () => {
   const [posts,setposts] = useState([]);
   const [selectedpost,setselectedpost] = useState(null);
   const [user,setuser] = useState("")
   useEffect(()=>{
-    fetch(`http://localhost:5000/api/userprofile/${JSON.parse(localStorage.getItem("user"))._id}`,{
+    fetch(`${Base_Url}/api/userprofile/${JSON.parse(localStorage.getItem("user"))._id}`,{
       headers:{
         "Authorization" : "Bearer " + localStorage.getItem("jwt")
       }

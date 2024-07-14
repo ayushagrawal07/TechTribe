@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import dotenv from 'dotenv';
+dotenv.config();
+const Base_Url = process.env.Base_Url;
 export default function ProfilePic({ changeprofile }) {
   const hiddenFileInput = useRef(null);
   const [image, setImage] = useState("");
@@ -23,7 +25,7 @@ export default function ProfilePic({ changeprofile }) {
 
   const postPic = () => {
     // saving post to mongodb
-    fetch("http://localhost:5000/uploadProfilePic", {
+    fetch(`${Base_Url}/uploadProfilePic`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",

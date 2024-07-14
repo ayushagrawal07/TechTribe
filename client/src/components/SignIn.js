@@ -2,7 +2,9 @@ import React, { useState,useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import  {toast}  from 'react-toastify';
 import { Context } from '../context/Context';
-
+import dotenv from 'dotenv';
+dotenv.config();
+const Base_Url = process.env.Base_Url;
 
 const SignIn = () => {
   const {setlogin} = useContext(Context)
@@ -11,7 +13,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   function postdata(event){
     event.preventDefault(); 
-   fetch("http://localhost:5000/api/signin",{
+   fetch(`${Base_Url}/api/signin`,{
     method:"post",
     headers:{
     "Content-Type":"application/json"
