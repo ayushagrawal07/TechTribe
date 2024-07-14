@@ -2,9 +2,6 @@ import React, {  useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 //import { Context } from '../context/Context';
-import dotenv from 'dotenv';
-dotenv.config();
-const Base_Url = process.env.Base_Url;
 const CreatePostForm = () => {
 
   const [content, setContent] = useState("");
@@ -27,7 +24,7 @@ const CreatePostForm = () => {
   useEffect(() =>
     {
       if(url)
-    {fetch(`${Base_Url}/api/createpost`, {
+    {fetch(`https://techtribe-v65p.onrender.com/api/createpost`, {
 
       method: "post",
 

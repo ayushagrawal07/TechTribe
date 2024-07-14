@@ -5,9 +5,7 @@ import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 import {toast} from "react-toastify"
 import { Link } from 'react-router-dom';
 import {formatDistanceToNow } from "date-fns";
-import dotenv from 'dotenv';
-dotenv.config();
-const Base_Url = process.env.Base_Url;
+
 
 
 const Card = ({ post }) => {
@@ -17,7 +15,7 @@ const Card = ({ post }) => {
   
 
   const handleLike = (id) => {
-    fetch(`${Base_Url}/api/like`, {
+    fetch(`https://techtribe-v65p.onrender.com/api/like`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +29,7 @@ const Card = ({ post }) => {
   };
 
   const handleUnlike = (id) => {
-    fetch(`${Base_Url}/api/unlike`, {
+    fetch(`https://techtribe-v65p.onrender.com/api/unlike`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +43,7 @@ const Card = ({ post }) => {
   };
 
   const handleComment = (comment, id) => {
-    fetch(`${Base_Url}/api/comment`, {
+    fetch(`https://techtribe-v65p.onrender.com/api/comment`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",

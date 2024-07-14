@@ -4,9 +4,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { Context } from '../context/Context';
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import dotenv from 'dotenv';
-dotenv.config();
-const Base_Url = process.env.Base_Url;
+
 export default function SignUp() {
   const [name, setname] = useState("");
   const [username, setusername] = useState("");
@@ -20,7 +18,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   function postdata(e) {
     e.preventDefault();
-    fetch(`${Base_Url}api/signup`, {
+    fetch(`https://techtribe-v65p.onrender.com/api/signup`, {
       method: "post",
       headers: {
         "Content-Type": "application/json"
@@ -52,7 +50,7 @@ export default function SignUp() {
     
     const jwtdetail = jwtDecode(credentialResponse);
     console.log(jwtdetail);
-    fetch(`${Base_Url}/api/googlesignin`,{
+    fetch(`https://techtribe-v65p.onrender.com/api/googlesignin`,{
       method:"POST",
       headers:{
         "Content-Type":"application/json"

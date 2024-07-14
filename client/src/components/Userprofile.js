@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PostModel from './PostModel';
-import dotenv from 'dotenv';
-dotenv.config();
-const Base_Url = process.env.Base_Url;
+
 const Userprofile = () => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState("");
@@ -12,7 +10,7 @@ const Userprofile = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`${Base_Url}/api/userprofile/${id}`, {
+    fetch(`https://techtribe-v65p.onrender.com/api/userprofile/${id}`, {
       method: "get",
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -41,7 +39,7 @@ const Userprofile = () => {
   };
 
   const handleFollow = () => {
-    const url = isFollowing ? `${Base_Url}/api/unfollow` : `${Base_Url}/api/follow`;
+    const url = isFollowing ? `https://techtribe-v65p.onrender.com/api/unfollow` : `https://techtribe-v65p.onrender.com/api/follow`;
     fetch(url, {
       method: 'put',
       headers: {
