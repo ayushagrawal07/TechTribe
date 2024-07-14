@@ -11,7 +11,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!login) navigate("/signup");
+    if (!login) navigate("./signup");
     fetch("http://localhost:5000/api/posts", {
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("jwt")
