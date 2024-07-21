@@ -56,7 +56,7 @@ const Navbar = () => {
   useEffect(() => {
     if (query.length > 1) {
       setLoading(true);
-      fetch(`http://localhost:5000/api/search?query=${query}`, {
+      fetch(`https://techtribe-v65p.onrender.com/api/search?query=${query}`, {
         headers: {
           "Authorization": "Bearer " + localStorage.getItem("jwt")
         }

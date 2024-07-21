@@ -55,7 +55,7 @@ const SendOtpModal = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (otp.length === 6 && password && confirmPassword && password === confirmPassword) {
-      fetch('http://localhost:5000/api/checkotp', {
+      fetch('https://techtribe-v65p.onrender.com/api/checkotp', {
         method: 'PUT',
         headers: {
           "Content-Type": "application/json"

@@ -3,6 +3,7 @@ import { Context } from '../context/Context';
 import { AiOutlineClose } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
+
 const OtpModal = () => {
   
   const { otpmodal, setotpmodal, setsendotpmodal,setparent } = useContext(Context);
@@ -22,14 +23,16 @@ const OtpModal = () => {
     };
   }, []);
 
-  if (!otpmodal) return null;
+  
 
+  if (!otpmodal) return null;
+  
   const closeModal = () => setotpmodal(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (email) {
-      fetch('http://localhost:5000/api/sendOtp', {
+      fetch('https://techtribe-v65p.onrender.com/api/sendOtp', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
