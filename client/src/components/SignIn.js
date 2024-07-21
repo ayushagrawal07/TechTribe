@@ -5,7 +5,7 @@ import { Context } from '../context/Context';
 
 
 const SignIn = () => {
-  const {setlogin} = useContext(Context)
+  const {setlogin,setotpmodal} = useContext(Context)
   const [email,setemail] = useState("");
   const [password,setpassword] = useState("");
   const navigate = useNavigate();
@@ -44,9 +44,9 @@ const SignIn = () => {
   }
   return (
     <>
-      <section className="bg-gra-50 dark:bg-gray-900">
+      <section className="bg-gray-50 dark:bg-white">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <Link to="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+          <Link to="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-black">
             <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo"/>
             TechTribe
           </Link>
@@ -78,8 +78,10 @@ const SignIn = () => {
                       <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
                     </div>
                   </div>
-                  <Link to="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</Link>
+                  <Link className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500" onClick={()=>setotpmodal(true)}>Forgot password?</Link>
+
                 </div>
+                
                 <button 
   type="submit" 
   onClick={postdata}

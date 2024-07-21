@@ -14,6 +14,9 @@ import userprofile from "../controllers/userprofile.js";
 import follow from "../controllers/follow.js";
 import unfollow from "../controllers/unfollow.js";
 import googleSingin from "../controllers/googleSignin.js";
+import sendotp from "../controllers/sendotp.js";
+import checkotp from "../controllers/checkotp.js";
+
 
 const route = Router();
 
@@ -29,6 +32,8 @@ route.delete("/deletepost/:postId",islogin,deletepost)
 route.get("/userprofile/:id",islogin,userprofile);
 route.put("/follow",islogin,follow);
 route.put("/unfollow",islogin,unfollow);
+route.post("/sendOtp",sendotp)
+route.put("/checkotp",checkotp)
 
 route.post("/googlesignin",googleSingin);
 export default route;

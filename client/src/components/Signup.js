@@ -79,9 +79,9 @@ export default function SignUp() {
   }
   return (
     <>
-      <section className="bg-black-50 dark:bg-gray-900 py-16">
+      <section className="bg-white-50 dark:bg-white py-16">
         <div className="flex flex-col items-center justify-center px-6 py-10 mx-auto md:h-screen lg:py-0">
-          <Link to="/" className="flex items-center mb-6 text-2xl font-semibold text-white-900 dark:text-white">
+          <Link to="/" className="flex items-center mb-6 text-2xl font-semibold text-white-900 dark:text-black">
             <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
             TechTribe
           </Link>
@@ -132,7 +132,7 @@ export default function SignUp() {
                   onError={() => {
                     console.log('Login Failed');
                   }}
-                />;
+                />
                 <button type="submit" className="w-full text-black bg-cyan-500 hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800" onClick={postdata} >Sign Up</button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have an account yet?
