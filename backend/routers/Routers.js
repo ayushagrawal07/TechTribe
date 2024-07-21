@@ -16,7 +16,7 @@ import unfollow from "../controllers/unfollow.js";
 import googleSingin from "../controllers/googleSignin.js";
 import sendotp from "../controllers/sendotp.js";
 import checkotp from "../controllers/checkotp.js";
-
+import search from "../controllers/search.js";
 
 const route = Router();
 
@@ -34,6 +34,6 @@ route.put("/follow",islogin,follow);
 route.put("/unfollow",islogin,unfollow);
 route.post("/sendOtp",sendotp)
 route.put("/checkotp",checkotp)
-
+route.get("/search",islogin,search)
 route.post("/googlesignin",googleSingin);
 export default route;
